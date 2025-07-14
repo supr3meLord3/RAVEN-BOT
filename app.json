@@ -19,28 +19,9 @@
   "logo": "https://files.catbox.moe/duv8ac.jpg",
   "success_url": "/",
   "env": {
-    "PREFIX": {
-      "description": "Prefix of RAVEN-BOT Ex: . , / , # , & etc. Put any symbol or leave it blank",
-      "required": false
-    },
     "DEV": {
       "description": "Put any phone numbers you want to be bot owner without + or spaces \",\" Ex: 254114660061,27849061633",
       "required": true
-    },
-    "ANTIDELETE": {
-      "description": "Input TRUE if you want bot to forward back deleted messages. The messages will be forwarded to your PM.",
-      "value": "TRUE",
-      "required": false
-    },
-    "AUTOREJECT_CALL": {
-      "description": "Put TRUE if you want bot to decline all incoming calls",
-      "value": "TRUE",
-      "required": false
-    },
-    "ANTIFOREIGN": {
-      "description": "Input TRUE if you want bot to automatically remove foreigners who are not from your country code joining a group",
-      "value": "FALSE",
-      "required": false
     },
     "HEROKU_API": {
       "description": "Put a Heroku API key here, will be required to update vars in your DM",
@@ -49,49 +30,6 @@
     "BAD_WORD": {
       "description": "List words separated with commas that will be considered bad. Example: fuck, pussy, hoe",
       "value": "fuck,pussy,slut,bitch,cock,stupid",
-      "required": false
-    },
-    "BAD_WORD_KICK": {
-      "description": "TRUE to kick members using listed bad words",
-      "value": "TRUE",
-      "required": false
-    },
-    "ANTITAG": {
-      "description": "TRUE to kick tag spammers from a group",
-      "required": false
-    },
-    "AUTOREAD": {
-      "description": "TRUE to make bot bluetick private messages",
-      "value": "FALSE",
-      "required": true
-    },
-    "AUTOVIEW": {
-      "description": "TRUE to make bot auto-view WhatsApp statuses",
-      "value": "TRUE",
-      "required": true
-    },
-    "WA_PRESENCE": {
-      "description": "Simulate presence: typing, recording, or online",
-      "value": "recording",
-      "required": true
-    },
-    "WELCOMEGOODBYE": {
-      "description": "TRUE to send welcome/goodbye messages in groups",
-      "value": "FALSE",
-      "required": false
-    },
-    "ANTILINK": {
-      "description": "TRUE to auto-kick users who send WhatsApp group links",
-      "value": "TRUE",
-      "required": true
-    },
-    "ANTILINK_ALL": {
-      "description": "TRUE to kick users sending any type of link",
-      "value": "FALSE",
-      "required": true
-    },
-    "ANTIBOT": {
-      "description": "TRUE to kick other bots from the group",
       "required": false
     },
     "CODE": {
@@ -103,33 +41,9 @@
       "description": "Paste your Session ID after pairing the bot (required for authentication)",
       "required": true
     },
-    "MODE": {
-      "description": "PRIVATE or PUBLIC to control access",
-      "value": "PUBLIC",
-      "required": true
-    },
-    "AUTOBIO": {
-      "description": "TRUE to enable auto-updating of bot about with time/date",
-      "value": "TRUE",
-      "required": false
-    },
     "APP_NAME": {
-      "description": "Your app name from above, lowercase",
+      "description": "repeat the appname you filled above, lowercase",
       "required": true
-    },
-    "STICKER_AUTHOR": {
-      "description": "Sticker author data",
-      "value": "RAVEN-BOT",
-      "required": false
-    },
-    "STICKER_PACKNAME": {
-      "description": "Sticker pack name data",
-      "value": "RAVEN-BOT",
-      "required": false
-    },
-    "GPT_INBOX": {
-      "description": "TRUE to enable GPT auto-reply in inbox (may cause spam)",
-      "required": false
     },
     "MENU_LINK": {
       "description": "Image URL for menu (if MENU_TYPE is IMAGE)",
@@ -138,16 +52,11 @@
     },
     "MENU_TYPE": {
       "description": "VIDEO, LINK, or IMAGE menu format",
-      "value": "IMAGE",
-      "required": false
-    },
-    "AUTOLIKE_STATUS": {
-      "description": "TRUE to auto-like viewed statuses",
-      "value": "TRUE",
+      "value": "VIDEO",
       "required": false
     },
     "DATABASE_URL": {
-      "description": "PostgreSQL connection string, it will be automatically added by Heroku Postgres add-on",
+      "description": "PostgreSQL connection string, it will be automatically added by Heroku Postgres add-on, leave it blank",
       "required": false
     }
   },
