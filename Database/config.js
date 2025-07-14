@@ -1,7 +1,10 @@
 const { Pool } = require('pg');
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
 const defaultSettings = {
@@ -26,7 +29,7 @@ async function initializeDatabase() {
         value TEXT NOT NULL
       );
     `);
-    console.log("✅ Table 'bot_settings' ready.");
+    console.log("✅ Table ziko tayari");
 
     for (const [key, value] of Object.entries(defaultSettings)) {
       await client.query(
