@@ -101,7 +101,7 @@ const {
     const mime = (quoted.msg || quoted).mimetype || "";
     const qmsg = (quoted.msg || quoted);
     const cmd = body.startsWith(prefix);
-    const badword = bad.split(",");
+    const badwords = bad.split(",");
 //========================================================================================================================//		      
 //========================================================================================================================//	      
     const groupMetadata = m.isGroup ? await client.groupMetadata(m.chat).catch((e) => { }) : "";  
@@ -450,7 +450,7 @@ await client.sendMessage(from, {text: lod[i], edit: key });
             return DateTime.now().setZone('Africa/Nairobi').toLocaleString(DateTime.TIME_SIMPLE);
         };
 //========================================================================================================================//	
-if (badword === 'on' && isBotAdmin && !isAdmin && body && (new RegExp('\\b' + badword.join('\\b|\\b') + '\\b')).test(body.toLowerCase())) {
+if (badword === 'on' && isBotAdmin && !isAdmin && body && (new RegExp('\\b' + badwords.join('\\b|\\b') + '\\b')).test(body.toLowerCase())) {
 	
        reply("Hey niggah.\n\nMy owner hates usage of bad words in my presence!")
                  
