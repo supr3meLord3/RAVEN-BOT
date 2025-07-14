@@ -22,19 +22,16 @@
     "PREFIX": {
       "description": "Prefix of RAVEN-BOT Ex: . , / , # , & etc. Put any symbol or leave it blank",
       "required": false
-
     },
     "DEV": {
-      "description": "Put any phone numbers you want to be bot owner without + or spaces \",\" Ex: 254114660061,27849061633  ",
+      "description": "Put any phone numbers you want to be bot owner without + or spaces \",\" Ex: 254114660061,27849061633",
       "required": true
     },
     "ANTIDELETE": {
-      "description": "Input TRUE if you want bot to foward back deleted messages. The messages will be fowarded to your Pm, Message yourself.",
+      "description": "Input TRUE if you want bot to forward back deleted messages. The messages will be forwarded to your PM.",
       "value": "TRUE",
       "required": false
     },
-    
-    
     "AUTOREJECT_CALL": {
       "description": "Put TRUE if you want bot to decline all incoming calls",
       "value": "TRUE",
@@ -46,109 +43,111 @@
       "required": false
     },
     "HEROKU_API": {
-      "description": "Put a Heroku api key here, will be required to update vars in your Dm",
+      "description": "Put a Heroku API key here, will be required to update vars in your DM",
       "required": true
     },
     "BAD_WORD": {
-      "description": "List words separated witj commas that will be considered as bad and will trigger bot to kick. Example: fuck, pussy, hoe",
+      "description": "List words separated with commas that will be considered bad. Example: fuck, pussy, hoe",
       "value": "fuck,pussy,slut,bitch,cock,stupid",
       "required": false
     },
     "BAD_WORD_KICK": {
-      "description": "Put here TRUE if you want the bot to automatically kick group members using words that you have listed as bad",
+      "description": "TRUE to kick members using listed bad words",
       "value": "TRUE",
       "required": false
     },
     "ANTITAG": {
-      "description": "Put TRUE if you want bot kick out unnecessary tags from a group, Not sure if its working eh!",
+      "description": "TRUE to kick tag spammers from a group",
       "required": false
     },
-      "AUTOREAD": {
-      "description": "Put here TRUE if you want bot to automatically bluetick messages in private chats",
+    "AUTOREAD": {
+      "description": "TRUE to make bot bluetick private messages",
       "value": "FALSE",
       "required": true
-},
- "AUTOVIEW": {
-      "description": "Input TRUE if you want bot to automatically read status update",
+    },
+    "AUTOVIEW": {
+      "description": "TRUE to make bot auto-view WhatsApp statuses",
       "value": "TRUE",
       "required": true
-},
- "WA_PRESENCE": {
-      "description": "Input either recording, typing, online, or leave it blank. This enables bot to simulate typing or recording or online status even if you're not online.",
+    },
+    "WA_PRESENCE": {
+      "description": "Simulate presence: typing, recording, or online",
       "value": "recording",
       "required": true
-},
- "WELCOMEGOODBYE": {
-      "description": "Input TRUE if you want bot to welcome new members joining group or wave goodbye to members leaving a group.",
+    },
+    "WELCOMEGOODBYE": {
+      "description": "TRUE to send welcome/goodbye messages in groups",
       "value": "FALSE",
       "required": false
-},
-   
- "ANTILINK": {
-      "description": "Input TRUE if you want bot to kick link senders only whatsapp group links",
+    },
+    "ANTILINK": {
+      "description": "TRUE to auto-kick users who send WhatsApp group links",
       "value": "TRUE",
       "required": true
-},
- "ANTILINK_ALL": {
-      "description": "Input TRUE if you want bot to kick users sending any kind of link.",
+    },
+    "ANTILINK_ALL": {
+      "description": "TRUE to kick users sending any type of link",
       "value": "FALSE",
       "required": true
-},
- "ANTIBOT": {
-      "description": "Input TRUE if you want bot to kick other bots from group",
+    },
+    "ANTIBOT": {
+      "description": "TRUE to kick other bots from the group",
       "required": false
-},
- "CODE": {
-      "description": "Input you country code here without + eg 254, it Will be used to Eliminate foreigners from the group once prompted.",
+    },
+    "CODE": {
+      "description": "Country code without +, used for antiforeign feature (e.g., 254)",
       "value": "254",
       "required": true
-},
- "SESSION": {
-      "description": "Paste your Session id you received after linking here, as it is required for authenticationn. important!",
+    },
+    "SESSION": {
+      "description": "Paste your Session ID after pairing the bot (required for authentication)",
       "required": true
-},
- "MODE": {
-      "description": "Input PRIVATE if you don't want other people to use your bot",
+    },
+    "MODE": {
+      "description": "PRIVATE or PUBLIC to control access",
       "value": "PUBLIC",
       "required": true
     },
-    
- "AUTOBIO": {
-      "description": "Input TRUE if you want bot to autoupdate its about with current time and date.",
+    "AUTOBIO": {
+      "description": "TRUE to enable auto-updating of bot about with time/date",
       "value": "TRUE",
       "required": false
-},
- "APP_NAME": {
-      "description": "Input your app name that you put above, Must be in small letters.",
+    },
+    "APP_NAME": {
+      "description": "Your app name from above, lowercase",
       "required": true
-},
- "STICKER_AUTHOR": {
-      "description": "Input sticker data for author",
+    },
+    "STICKER_AUTHOR": {
+      "description": "Sticker author data",
       "value": "RAVEN-BOT",
       "required": false
-},
- "STICKER_PACKNAME": {
-      "description": "Input sticker data for packname",
+    },
+    "STICKER_PACKNAME": {
+      "description": "Sticker pack name data",
       "value": "RAVEN-BOT",
       "required": false
-},
- "GPT_INBOX": {
-      "description": "Input TRUE if you want bot to autoreply inbox messages using openai API. For now not stable may cause spam!",
+    },
+    "GPT_INBOX": {
+      "description": "TRUE to enable GPT auto-reply in inbox (may cause spam)",
       "required": false
-},
-  "MENU_LINK": {
-      "description": "Paste your Image Url here or use the default one, This will display it on your menu if you set MENU_TYPE as IMAGE.",
+    },
+    "MENU_LINK": {
+      "description": "Image URL for menu (if MENU_TYPE is IMAGE)",
       "value": "https://files.catbox.moe/duv8ac.jpg",
-      "required": false 
-    },  
-  "MENU_TYPE": {
-      "description": "Input either VIDEO, LINK or IMAGE. This will allow bot to display different dynamic menu types",
+      "required": false
+    },
+    "MENU_TYPE": {
+      "description": "VIDEO, LINK, or IMAGE menu format",
       "value": "IMAGE",
-      "required": false 
+      "required": false
     },
     "AUTOLIKE_STATUS": {
-      "description": "input TRUE if you want bot to autolike status updates. This will only work if autostatus view is TRUE",
+      "description": "TRUE to auto-like viewed statuses",
       "value": "TRUE",
+      "required": false
+    },
+    "DATABASE_URL": {
+      "description": "PostgreSQL connection string, it will be automatically added by Heroku Postgres add-on",
       "required": false
     }
   },
@@ -162,5 +161,8 @@
     {
       "url": "https://github.com/heroku/heroku-buildpack-activestorage-preview"
     }
+  ],
+  "addons": [
+    "heroku-postgresql"
   ]
-    }
+}
