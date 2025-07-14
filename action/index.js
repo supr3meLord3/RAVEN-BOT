@@ -38,19 +38,20 @@ const store = makeInMemoryStore({ logger: logger.child({ stream: 'store' }) });
 const color = (text, color) => {
   return !color ? chalk.green(text) : chalk.keyword(color)(text);
 };
-const {
+
+authenticationn();
+
+async function startRaven() {
+
+  const {
   autobio,
   antiforeign,
   autolike,
   autoview,
   mode,
   prefix
-} = fetchSettings();
+} = await fetchSettings();
 
-
-authenticationn();
-
-async function startRaven() {
   const { state, saveCreds } = await useMultiFileAuthState("session");
   const { version, isLatest } = await fetchLatestBaileysVersion();
   console.log(`using WA v${version.join(".")}, isLatest: ${isLatest}`);
