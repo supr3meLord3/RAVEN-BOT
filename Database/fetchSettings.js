@@ -9,8 +9,18 @@ async function fetchSettings() {
     mode: data.mode,
     prefix: data.prefix,
     autolike: data.autolike,
-    autoviewstatus: data.autoviewstatus,
-    antilink: data.antilink
+    autoview: data.autoview,
+    antilink: data.antilink,
+    antilinkall: data.antilinkall,
+    antidelete: data.antidelete,
+    antitag: data.antitag,
+    antiforeign: data.antiforeign,
+    antibot: data.antibot,
+    events: data.events,
+    autobio: data.autobio,
+    badword: data.badword,
+    gptdm: data.gptdm
+
   };
 }
 
