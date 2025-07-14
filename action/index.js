@@ -41,17 +41,12 @@ const color = (text, color) => {
 
 authenticationn();
 
-async function startRaven() {
-
-  const {
-  autobio,
-  antiforeign,
-  autolike,
-  autoview,
-  mode,
-  prefix, 
-  anticall
-} = await fetchSettings();
+async function startRaven() { 
+  
+let settings = await fetchSettings();
+  if (!settings) return;
+  
+  const { autobio, antiforeign, autolike, autoview, mode, prefix, anticall } = settings; 
 
   const { state, saveCreds } = await useMultiFileAuthState("session");
   const { version, isLatest } = await fetchLatestBaileysVersion();
