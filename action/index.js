@@ -32,7 +32,7 @@ const fetchSettings = require('../Database/fetchSettings');
 const PhoneNumber = require("awesome-phonenumber");
 const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('../lib/ravenexif');
 const { smsg, isUrl, generateMessageTag, getBuffer, getSizeMedia, fetchJson, await, sleep } = require('../lib/ravenfunc');
-const { sessionName, session, port, mycode, anticall, packname } = require("../set.js");
+const { sessionName, session, port, mycode, packname } = require("../set.js");
 const makeInMemoryStore = require('../store/store.js'); 
 const store = makeInMemoryStore({ logger: logger.child({ stream: 'store' }) });
 const color = (text, color) => {
@@ -49,7 +49,8 @@ async function startRaven() {
   autolike,
   autoview,
   mode,
-  prefix
+  prefix, 
+  anticall
 } = await fetchSettings();
 
   const { state, saveCreds } = await useMultiFileAuthState("session");
@@ -163,7 +164,7 @@ if (!client.public && !mek.key.fromMe && chatUpdate.type === "notify") return;
     });
 
  client.ev.on('call', async (callData) => {
-    if (anticall === 'TRUE') {
+    if (anticall === 'on') {
       const callId = callData[0].id;
       const callerId = callData[0].from;
       
