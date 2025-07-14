@@ -14,8 +14,10 @@ const defaultSettings = {
   wapresence: 'recording'
 };
 
-async function init() {
+async function getSettings() {
   const client = await pool.connect();
+  console.log("📡 Connected to PostgreSQL database...");
+
   try {
     await client.query(`
       CREATE TABLE IF NOT EXISTS bot_settings (
@@ -24,25 +26,41 @@ async function init() {
         value TEXT NOT NULL
       );
     `);
+    console.log("✅ Table imeundwa");
 
     for (const [key, value] of Object.entries(defaultSettings)) {
-      await client.query(
-        `
-          INSERT INTO bot_settings (key, value)
-          VALUES ($1, $2)
-          ON CONFLICT (key) DO NOTHING;
-        `,
+      const res = await client.query(
+        `INSERT INTO bot_settings (key, value)
+         VALUES ($1, $2)
+         ON CONFLICT (key) DO NOTHING;`,
         [key, value]
       );
+
+      if (res.rowCount > 0) {
+        
+      }
     }
 
-    console.log("👀 Bot settings initialized successfully.");
+    const result = await client.query(
+      `SELECT key, value FROM bot_settings WHERE key = ANY($1::text[])`,
+      [Object.keys(defaultSettings)]
+    );
+
+    const settings = {};
+    for (const row of result.rows) {
+      settings[row.key] = row.value;
+    }
+
+    console.log("✅ Settings loaded from database.");
+    return settings;
+
   } catch (err) {
-    console.error("Error initializing bot settings:", err);
+    console.error("❌ Error initializing or fetching settings:", err);
+    return defaultSettings;
+
   } finally {
     client.release();
-    pool.end();
   }
 }
 
-init();
+module.exports = getSettings;
