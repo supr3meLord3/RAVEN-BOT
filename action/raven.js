@@ -24,6 +24,7 @@ const acrcloud = require("acrcloud");
 const ytdl = require("ytdl-core");
 const Client = new Genius.Client("TUoAEhL79JJyU-MpOsBDkFhJFWFH28nv6dgVgPA-9R1YRwLNP_zicdX2omG2qKE8gYLJat5F5VSBNLfdnlpfJg"); // Scrapes if no key is provided
 const { downloadYouTube, downloadSoundCloud, downloadSpotify, searchYouTube, searchSoundCloud, searchSpotify } = require('../action/wee');
+const { getSettings, updateSetting } = require('../Database/config');
 const { TelegraPh, UploadFileUgu, webp2mp4File, floNime } = require('../lib/ravenupload');
 const { Configuration, OpenAI } = require("openai");
 const { menu, menulink, autoread, mode, antidel, antitag, appname, herokuapi, gptdm, botname, antibot, prefix, author, packname, mycode, admin, botAdmin, dev, group, bad, owner, NotOwner, antilink, antilinkall, wapresence, badwordkick } = require("../set.js");
@@ -773,6 +774,82 @@ break;
 		      
 //========================================================================================================================//
 //========================================================================================================================//
+
+case "antilink": {
+  const settings = await getSettings();
+  const current = settings.antilink;
+  if (!text) return reply(`🛡️ Antilink is currently *${current.toUpperCase()}*`);
+  if (!["on", "off"].includes(text)) return reply("Usage: antilink on/off");
+  if (text === current) return reply(`✅ Antilink is already *${text.toUpperCase()}*`);
+  await updateSetting("antilink", text);
+  reply(`✅ Antilink has been turned *${text.toUpperCase()}*`);
+}
+break;
+
+case "autoread": {
+  const settings = await getSettings();
+  const current = settings.autoread;
+  if (!text) return reply(`📨 Autoread is currently *${current.toUpperCase()}*`);
+  if (!["on", "off"].includes(text)) return reply("Usage: autoread on/off");
+  if (text === current) return reply(`✅ Autoread is already *${text.toUpperCase()}*`);
+  await updateSetting("autoread", text);
+  reply(`✅ Autoread has been set to *${text.toUpperCase()}*`);
+}
+break;
+
+case "mode": {
+  const settings = await getSettings();
+  const current = settings.mode;
+  if (!text) return reply(`Mode is currently *${current.toUpperCase()}*`);
+  if (!["public", "private"].includes(text)) return reply("Usage: mode public/private");
+  if (text === current) return reply(`✅ Mode is already *${text.toUpperCase()}*`);
+  await updateSetting("mode", text);
+  reply(`✅ Mode changed to *${text.toUpperCase()}*`);
+}
+break;
+
+case "prefix": {
+  const settings = await getSettings();
+  const current = settings.prefix;
+  if (!text) return reply(`Prefix is currently *${current}*`);
+  if (text === current) return reply("✅ Prefix is already set to that.");
+  await updateSetting("prefix", text);
+  reply(`✅ Prefix updated to *${text}*`);
+}
+break;
+
+case "autolike": {
+  const settings = await getSettings();
+  const current = settings.autolike;
+  if (!text) return reply(`Autolike is currently *${current.toUpperCase()}*`);
+  if (!["on", "off"].includes(text)) return reply("Usage: autolike on/off");
+  if (text === current) return reply(`✅ Autolike is already *${text.toUpperCase()}*`);
+  await updateSetting("autolike", text);
+  reply(`✅ Autolike has been turned *${text.toUpperCase()}*`);
+}
+break;
+
+case "autoviewstatus": {
+  const settings = await getSettings();
+  const current = settings.autoviewstatus;
+  if (!text) return reply(`👀 Auto view status is currently *${current.toUpperCase()}*`);
+  if (!["on", "off"].includes(text)) return reply("Usage: autoviewstatus on/off");
+  if (text === current) return reply(`✅ Auto view status is already *${text.toUpperCase()}*`);
+  await updateSetting("autoviewstatus", text);
+  reply(`✅ Auto view status updated to *${text.toUpperCase()}*`);
+}
+break;
+
+case "wapresence": {
+  const settings = await getSettings();
+  const current = settings.wapresence;
+  if (!text) return reply(`👤 Presence is currently *${current}*`);
+  if (!["typing", "online", "recording"].includes(text)) return reply("Usage: wapresence typing/online/recording");
+  if (text === current) return reply(`✅ Presence is already *${text}*`);
+  await updateSetting("wapresence", text);
+  reply(`✅ Presence updated to *${text}*`);
+}
+break;
 case "advice":
 reply(advice());
 console.log(advice());
