@@ -48,7 +48,10 @@ const {
   badword,
   antibot,
   antitag	
-} = await fetchSettings();
+} = await fetchSettings(); 
+	  
+console.log(prefix);
+	  
     var body =
       m.mtype === "conversation"
         ? m.message.conversation
