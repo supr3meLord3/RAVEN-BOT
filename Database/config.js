@@ -14,9 +14,9 @@ const defaultSettings = {
   wapresence: 'recording'
 };
 
-async function getSettings() {
+async function initializeDatabase() {
   const client = await pool.connect();
-  console.log("📡 Connected to PostgreSQL database...");
+  console.log("📡 Connecting to PostgreSQL...");
 
   try {
     await client.query(`
@@ -26,21 +26,29 @@ async function getSettings() {
         value TEXT NOT NULL
       );
     `);
-    console.log("✅ Table imeundwa");
+    console.log("✅ Table 'bot_settings' ready.");
 
     for (const [key, value] of Object.entries(defaultSettings)) {
-      const res = await client.query(
+      await client.query(
         `INSERT INTO bot_settings (key, value)
          VALUES ($1, $2)
          ON CONFLICT (key) DO NOTHING;`,
         [key, value]
       );
-
-      if (res.rowCount > 0) {
-        
-      }
     }
 
+    console.log("✅ Database initialized.");
+  } catch (err) {
+    console.error("❌ Initialization error:", err);
+  } finally {
+    client.release();
+  }
+}
+
+async function getSettings() {
+  const client = await pool.connect();
+
+  try {
     const result = await client.query(
       `SELECT key, value FROM bot_settings WHERE key = ANY($1::text[])`,
       [Object.keys(defaultSettings)]
@@ -51,11 +59,11 @@ async function getSettings() {
       settings[row.key] = row.value;
     }
 
-    console.log("✅ Settings loaded from database.");
+    console.log("✅ Settings fetched from DB.");
     return settings;
 
   } catch (err) {
-    console.error("❌ Error initializing or fetching settings:", err);
+    console.error("❌ Failed to fetch settings:", err);
     return defaultSettings;
 
   } finally {
@@ -63,4 +71,7 @@ async function getSettings() {
   }
 }
 
-module.exports = getSettings;
+module.exports = {
+  initializeDatabase,
+  getSettings
+};
