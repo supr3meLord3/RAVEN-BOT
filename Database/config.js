@@ -7,11 +7,20 @@ const pool = new Pool({
 
 const defaultSettings = {
   antilink: 'on',
+  antilinkall: 'off',
+  autobio: 'off',
+  antidelete: 'on',
+  antitag: 'on',
+  antibot: 'off',
+  antiforeign: 'off',
+  badword: 'on',
+  gptdm: 'off',
+  events: 'off',
   autoread: 'off',
   mode: 'public',
   prefix: '.',
   autolike: 'on',
-  autoviewstatus: 'on',
+  autoview: 'on',
   wapresence: 'recording'
 };
 
