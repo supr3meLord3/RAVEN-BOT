@@ -16,7 +16,7 @@ const mode = process.env.MODE || 'PUBLIC';
 const anticall = process.env.AUTOREJECT_CALL || 'TRUE';
 const botname = process.env.BOTNAME || '𝗥𝗔𝗩𝗘𝗡-𝗕𝗢𝗧';
 const antibot = process.env.ANTIBOT || 'FALSE';
-const author = process.env.STICKER_AUTHOR ||'𝗕𝗢𝗧';
+const author = process.env.STICKER_AUTHOR || '𝗕𝗢𝗧';
 const packname = process.env.STICKER_PACKNAME || '𝗥𝗔𝗩𝗘𝗡';
 const antitag = process.env.ANTITAG || 'TRUE';
 const dev = process.env.DEV || '254114660061';
@@ -37,5 +37,43 @@ const mycode = process.env.CODE || '254';
 const antiforeign = process.env.ANTIFOREIGN || 'TRUE';
 const port = process.env.PORT || 8080;
 const antilinkall = process.env.ANTILINK_ALL || 'TRUE';
+const databaseUrl = process.env.DATABASE_URL || '';
 
-module.exports = { session, sessionName, autobio, author, packname, dev, owner, badwordkick, bad, mode, group, NotOwner, botname, botAdmin, antiforeign, menu, menulink, autoread, antilink, admin, mycode, antilinkall, anticall, antitag, antidel, wapresence, welcomegoodbye, antibot, herokuapi, prefix, port, gptdm, appname, autolike, autoviewstatus };  
+module.exports = {
+  session,
+  sessionName,
+  autobio,
+  author,
+  packname,
+  dev,
+  owner,
+  badwordkick,
+  bad,
+  mode,
+  group,
+  NotOwner,
+  botname,
+  botAdmin,
+  antiforeign,
+  menu,
+  menulink,
+  autoread,
+  antilink,
+  admin,
+  mycode,
+  antilinkall,
+  anticall,
+  antitag,
+  antidel,
+  wapresence,
+  welcomegoodbye,
+  antibot,
+  herokuapi,
+  prefix,
+  port,
+  gptdm,
+  appname,
+  autolike,
+  autoviewstatus,
+  databaseUrl
+};
