@@ -2,9 +2,7 @@ const { Pool } = require('pg');
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
+  ssl: { rejectUnauthorized: false }
 });
 
 const defaultSettings = {
@@ -29,7 +27,6 @@ async function initializeDatabase() {
         value TEXT NOT NULL
       );
     `);
-    console.log("✅ Table ziko tayari");
 
     for (const [key, value] of Object.entries(defaultSettings)) {
       await client.query(
@@ -74,7 +71,31 @@ async function getSettings() {
   }
 }
 
+async function updateSetting(key, value) {
+  const client = await pool.connect();
+  try {
+    const validKeys = Object.keys(defaultSettings);
+    if (!validKeys.includes(key)) {
+      throw new Error(`Invalid setting key: ${key}`);
+    }
+
+    await client.query(
+      `UPDATE bot_settings SET value = $1 WHERE key = $2`,
+      [value, key]
+    );
+
+   
+    return true;
+  } catch (err) {
+    console.error("❌ Failed to update setting:", err.message || err);
+    return false;
+  } finally {
+    client.release();
+  }
+}
+
 module.exports = {
   initializeDatabase,
-  getSettings
+  getSettings,
+  updateSetting
 };
