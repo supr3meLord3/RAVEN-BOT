@@ -25,13 +25,24 @@ const ytdl = require("ytdl-core");
 const Client = new Genius.Client("TUoAEhL79JJyU-MpOsBDkFhJFWFH28nv6dgVgPA-9R1YRwLNP_zicdX2omG2qKE8gYLJat5F5VSBNLfdnlpfJg"); // Scrapes if no key is provided
 const { downloadYouTube, downloadSoundCloud, downloadSpotify, searchYouTube, searchSoundCloud, searchSpotify } = require('../action/wee');
 const { getSettings, updateSetting } = require('../Database/config');
+const fetchSettings = require('../Database/fetchSettings');
 const { TelegraPh, UploadFileUgu, webp2mp4File, floNime } = require('../lib/ravenupload');
 const { Configuration, OpenAI } = require("openai");
-const { menu, menulink, autoread, mode, antidel, antitag, appname, herokuapi, gptdm, botname, antibot, prefix, author, packname, mycode, admin, botAdmin, dev, group, bad, owner, NotOwner, antilink, antilinkall, wapresence, badwordkick } = require("../set.js");
+const { menu, menulink, antidel, antitag, appname, herokuapi, gptdm, botname, antibot, author, packname, mycode, admin, botAdmin, dev, group, bad, owner, NotOwner, antilinkall, badwordkick } = require("../set.js");
+
+
 const { smsg, runtime, fetchUrl, isUrl, processTime, formatp, tanggal, formatDate, getTime,  sleep, generateProfilePicture, clockString, fetchJson, getBuffer, jsonformat, format, parseMention, getRandom } = require('../lib/ravenfunc');
 const { exec, spawn, execSync } = require("child_process");
 module.exports = raven = async (client, m, chatUpdate, store) => {
   try {
+
+const {
+  wapresence,
+  autoread,
+  mode,
+  prefix,
+  antilink
+} = await fetchSettings();
     var body =
       m.mtype === "conversation"
         ? m.message.conversation
@@ -301,12 +312,12 @@ if (wapresence === 'online') {
              client.sendPresenceUpdate('unavailable', Grace);
     }
 //========================================================================================================================//    
-if (cmd && mode === 'PRIVATE' && !itsMe && !Owner && m.sender !== dev) {
+if (cmd && mode === 'private' && !itsMe && !Owner && m.sender !== dev) {
 return;
 }
 //========================================================================================================================//	  
 //========================================================================================================================//	  
-if (autoread === 'TRUE' && !m.isGroup) { 
+if (autoread === 'on' && !m.isGroup) { 
              client.readMessages([m.key])
     }
       if (itsMe && mek.key.id.startsWith("BAE5") && mek.key.id.length === 16 && !m.isGroup) return;
