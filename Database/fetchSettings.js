@@ -16,11 +16,11 @@ async function fetchSettings() {
     antitag: data.antitag,
     antiforeign: data.antiforeign,
     antibot: data.antibot,
-    events: data.events,
+    welcomegoodbye: data.events,
     autobio: data.autobio,
     badword: data.badword,
-    gptdm: data.gptdm
-
+    gptdm: data.gptdm, 
+    anticall: data.anticall
   };
 }
 
