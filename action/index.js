@@ -28,15 +28,25 @@ const currentTime = Date.now();
 const Events = require('../action/events');
 const authenticationn = require('../action/auth');
 const { initializeDatabase } = require('../Database/config');
+const fetchSettings = require('../Database/fetchSettings');
 const PhoneNumber = require("awesome-phonenumber");
 const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('../lib/ravenexif');
 const { smsg, isUrl, generateMessageTag, getBuffer, getSizeMedia, fetchJson, await, sleep } = require('../lib/ravenfunc');
-const { sessionName, session, autobio, autolike, port, mycode, anticall, mode, prefix, antiforeign, packname, autoviewstatus } = require("../set.js");
+const { sessionName, session, port, mycode, anticall, packname } = require("../set.js");
 const makeInMemoryStore = require('../store/store.js'); 
 const store = makeInMemoryStore({ logger: logger.child({ stream: 'store' }) });
 const color = (text, color) => {
   return !color ? chalk.green(text) : chalk.keyword(color)(text);
 };
+const {
+  autobio,
+  antiforeign,
+  autolike,
+  autoview,
+  mode,
+  prefix
+} = fetchSettings();
+
 
 authenticationn();
 
@@ -64,7 +74,7 @@ async function startRaven() {
     syncFullHistory: true,
   });
 
-  if (autobio === 'TRUE') {
+  if (autobio === 'on') {
     setInterval(() => {
       const date = new Date();
       client.updateProfileStatus(
@@ -81,11 +91,11 @@ async function startRaven() {
       if (!mek.message) return;
       mek.message = Object.keys(mek.message)[0] === "ephemeralMessage" ? mek.message.ephemeralMessage.message : mek.message;
             
- if (autoviewstatus === 'TRUE' && mek.key && mek.key.remoteJid === "status@broadcast") {
+ if (autoview === 'on' && mek.key && mek.key.remoteJid === "status@broadcast") {
         client.readMessages([mek.key]);
       }
             
- if (autoviewstatus === 'TRUE' && autolike === 'TRUE' && mek.key && mek.key.remoteJid === "status@broadcast") {
+ if (autoview === 'on' && autolike === 'on' && mek.key && mek.key.remoteJid === "status@broadcast") {
         const nickk = await client.decodeJid(client.user.id);
         const emojis = ['🗿', '⌚️', '💠', '👣', '🍆', '💔', '🤍', '❤️‍🔥', '💣', '🧠', '🦅', '🌻', '🧊', '🛑', '🧸', '👑', '📍', '😅', '🎭', '🎉', '😳', '💯', '🔥', '💫', '🐒', '💗', '❤️‍🔥', '👁️', '👀', '🙌', '🙆', '🌟', '💧', '🦄', '🟢', '🎎', '✅', '🥱', '🌚', '💚', '💕', '😉', '😒'];
         const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
@@ -133,7 +143,7 @@ if (!client.public && !mek.key.fromMe && chatUpdate.type === "notify") return;
   });
    
   client.ev.on("group-participants.update", async (update) => {
-        if (antiforeign === 'TRUE' && update.action === "add") {
+        if (antiforeign === 'on' && update.action === "add") {
             for (let participant of update.participants) {
                 const jid = client.decodeJid(participant);
                 const phoneNumber = jid.split("@")[0];
