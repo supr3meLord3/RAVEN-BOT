@@ -564,17 +564,25 @@ let cap = `𝗛𝗲𝘆 𝘁𝗵𝗲𝗿𝗲😁, ${getGreeting()}\n\n╔══�
 ┃❃│ 𝗧𝘄𝗲𝗲𝘁
 ┃❃│ 𝗤𝘂𝗼𝘁𝗲𝗹𝘆
 ╰══⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊══╯
-> 𝗖𝗢𝗡𝗙𝗜𝗚 𝗩𝗔𝗥𝗦  𝗖𝗠𝗗𝗦
+> 𝗦𝗘𝗧𝗧𝗜𝗡𝗚𝗦 𝗖𝗠𝗗𝗦〚𝗼𝗻/𝗼𝗳𝗳〛
 ╭══⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊══╮
 ┃✥│ 𝗔𝗻𝘁𝗶𝗱𝗲𝗹𝗲𝘁𝗲
 ┃✥│ 𝗔𝗻𝘁𝗶𝗰𝗮𝗹𝗹
 ┃✥│ 𝗔𝗻𝘁𝗶𝗳𝗼𝗿𝗲𝗶𝗴𝗻
 ┃✥│ 𝗔𝗻𝘁𝗶𝗯𝗼𝘁
-┃✥│ 𝗔𝗻𝘁𝗶𝗯𝗮𝗱𝘄𝗼𝗿𝗱
+┃✥│ 𝗯𝗮𝗱𝘄𝗼𝗿𝗱
 ┃✥│ 𝗔𝗻𝘁𝗶𝘁𝗮𝗴
 ┃✥│ 𝗔𝗻𝘁𝗶𝗹𝗶𝗻𝗸
-┃✥│ 𝗔𝗻𝘁𝗶𝗹𝗶𝗻𝗸_𝗮𝗹𝗹
-┃✥│ 𝗚𝗽𝘁_𝗜𝗻𝗯𝗼𝘅
+┃✥│ 𝗔𝗻𝘁𝗶𝗹𝗶𝗻𝗸𝗮𝗹𝗹
+┃✥│ 𝗚𝗽𝘁𝗱𝗺
+┃✥│ 𝗔𝘂𝘁𝗼𝘃𝗶𝗲𝘄
+┃✥│ 𝗔𝘂𝘁𝗼𝗹𝗶𝗸𝗲
+┃✥│ 𝗔𝘂𝘁𝗼𝗿𝗲𝗮𝗱
+┃✥│ 𝗔𝘂𝘁𝗼𝗯𝗶𝗼
+┃✥│ 𝗠𝗼𝗱𝗲
+┃✥│ 𝗣𝗿𝗲𝗳𝗶𝘅
+┃✥│ 𝗪𝗲𝗹𝗰𝗼𝗺𝗲𝗴𝗼𝗼𝗱𝗯𝘆𝗲
+┃✥│ 𝗪𝗮𝗽𝗿𝗲𝘀𝗲𝗻𝗰𝗲
 ╰══⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊══╯
 > 𝗙𝗢𝗢𝗧𝗕𝗔𝗟𝗟  𝗖𝗠𝗗𝗦
 ╭══⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊══╮
@@ -796,6 +804,7 @@ break;
 //========================================================================================================================//
 
 case "antilink": {
+	if(!Owner) throw NotOwner;
   const settings = await getSettings();
   const current = settings.antilink;
   if (!text) return reply(`🛡️ Antilink is currently *${current.toUpperCase()}*`);
@@ -807,6 +816,7 @@ case "antilink": {
 break;
 
 case "antilinkall": {
+	if(!Owner) throw NotOwner;
   const settings = await getSettings();
   const current = settings.antilinkall;
   if (!text) return reply(`🛡️ Antilinkall is currently *${current.toUpperCase()}*`);
@@ -815,9 +825,22 @@ case "antilinkall": {
   await updateSetting("antilinkall", text);
   reply(`✅ Antilinkall has been turned *${text.toUpperCase()}*`);
 }
-break;
+break;		      
+
+case "antidelete": {
+	if(!Owner) throw NotOwner;
+  const settings = await getSettings();
+  const current = settings.antidelete;
+  if (!text) return reply(`😊 Antidelete is currently *${current.toUpperCase()}*`);
+  if (!["on", "off"].includes(text)) return reply("Usage: antidelete on/off");
+  if (text === current) return reply(`✅ Antidelete is already *${text.toUpperCase()}*`);
+  await updateSetting("antidelete", text);
+  reply(`✅ Antidelete has been turned *${text.toUpperCase()}*`);
+}
+break;	
 		      
 case "gptdm": {
+	if(!Owner) throw NotOwner;
   const settings = await getSettings();
   const current = settings.gptdm;
   if (!text) return reply(`🙂‍↕️ gptdm is currently *${current.toUpperCase()}*`);
@@ -829,6 +852,7 @@ case "gptdm": {
 break;
 		      
 case "autoread": {
+	if(!Owner) throw NotOwner;
   const settings = await getSettings();
   const current = settings.autoread;
   if (!text) return reply(`📨 Autoread is currently *${current.toUpperCase()}*`);
@@ -840,6 +864,7 @@ case "autoread": {
 break;
 
 case "mode": {
+	if(!Owner) throw NotOwner;
   const settings = await getSettings();
   const current = settings.mode;
   if (!text) return reply(`👥️ Mode is currently *${current.toUpperCase()}*`);
@@ -851,9 +876,10 @@ case "mode": {
 break;
 
 case "prefix": {
+	if(!Owner) throw NotOwner;
   const settings = await getSettings();
   const current = settings.prefix;
-  if (!text) return reply(`Prefix is currently *${current}*`);
+  if (!text) return reply(`👤 Prefix is currently *${current}*`);
   if (text === current) return reply("✅ Prefix is already set to that.");
   await updateSetting("prefix", text);
   reply(`✅ Prefix updated to *${text}*`);
@@ -861,9 +887,10 @@ case "prefix": {
 break;
 
 case "autolike": {
+	if(!Owner) throw NotOwner;
   const settings = await getSettings();
   const current = settings.autolike;
-  if (!text) return reply(`Autolike is currently *${current.toUpperCase()}*`);
+  if (!text) return reply(`🫠 Autolike is currently *${current.toUpperCase()}*`);
   if (!["on", "off"].includes(text)) return reply("Usage: autolike on/off");
   if (text === current) return reply(`✅ Autolike is already *${text.toUpperCase()}*`);
   await updateSetting("autolike", text);
@@ -872,6 +899,7 @@ case "autolike": {
 break;
 
 case "autobio": {
+	if(!Owner) throw NotOwner;
   const settings = await getSettings();
   const current = settings.autobio;
   if (!text) return reply(`😇 Autobio is currently *${current.toUpperCase()}*`);
@@ -882,18 +910,20 @@ case "autobio": {
 }
 break;
 		      
-case "autoviewstatus": {
+case "autoview": {
+	if(!Owner) throw NotOwner;
   const settings = await getSettings();
-  const current = settings.autoviewstatus;
+  const current = settings.autoview;
   if (!text) return reply(`👀 Auto view status is currently *${current.toUpperCase()}*`);
-  if (!["on", "off"].includes(text)) return reply("Usage: autoviewstatus on/off");
+  if (!["on", "off"].includes(text)) return reply("Usage: autoview on/off");
   if (text === current) return reply(`✅ Auto view status is already *${text.toUpperCase()}*`);
-  await updateSetting("autoviewstatus", text);
+  await updateSetting("autoview", text);
   reply(`✅ Auto view status updated to *${text.toUpperCase()}*`);
 }
 break;
 
 case "wapresence": {
+       if(!Owner) throw NotOwner;
   const settings = await getSettings();
   const current = settings.wapresence;
   if (!text) return reply(`👤 Presence is currently *${current}*`);
@@ -903,10 +933,83 @@ case "wapresence": {
   reply(`✅ Presence updated to *${text}*`);
 }
 break;
+
+case "badword": {
+	if(!Owner) throw NotOwner;
+  const settings = await getSettings();
+  const current = settings.badword;
+  if (!text) return reply(`😈 Badword is currently *${current.toUpperCase()}*`);
+  if (!["on", "off"].includes(text)) return reply("Usage: badword on/off");
+  if (text === current) return reply(`✅ Badword is already *${text.toUpperCase()}*`);
+  await updateSetting("badword", text);
+  reply(`✅ Badword has been turned *${text.toUpperCase()}*`);
+}
+break;	
+		
+case "antiforeign": {
+	if(!Owner) throw NotOwner;
+  const settings = await getSettings();
+  const current = settings.antiforeign;
+  if (!text) return reply(`😉 Antiforeign is currently *${current.toUpperCase()}*`);
+  if (!["on", "off"].includes(text)) return reply("Usage: antiforeign on/off");
+  if (text === current) return reply(`✅ Antiforeign is already *${text.toUpperCase()}*`);
+  await updateSetting("antiforeign", text);
+  reply(`✅ Antiforeign has been turned *${text.toUpperCase()}*`);
+}
+break;
+	
+case "anticall": {
+	if(!Owner) throw NotOwner;
+  const settings = await getSettings();
+  const current = settings.anticall;
+  if (!text) return reply(`🔰 Anticall is currently *${current.toUpperCase()}*`);
+  if (!["on", "off"].includes(text)) return reply("Usage: Anticall on/off");
+  if (text === current) return reply(`✅ Anticall is already *${text.toUpperCase()}*`);
+  await updateSetting("anticall", text);
+  reply(`✅ Anticall has been turned *${text.toUpperCase()}*`);
+}
+break;
+	
+case "antibot": {
+	if(!Owner) throw NotOwner;
+  const settings = await getSettings();
+  const current = settings.antibot;
+  if (!text) return reply(`👾 Antibot is currently *${current.toUpperCase()}*`);
+  if (!["on", "off"].includes(text)) return reply("Usage: antibot on/off");
+  if (text === current) return reply(`✅ Antibot is already *${text.toUpperCase()}*`);
+  await updateSetting("antibot", text);
+  reply(`✅ Antibot has been turned *${text.toUpperCase()}*`);
+}
+break;	
+	
+case "antitag": {
+	if(!Owner) throw NotOwner;
+  const settings = await getSettings();
+  const current = settings.antitag;
+  if (!text) return reply(`🤖 Antitag is currently *${current.toUpperCase()}*`);
+  if (!["on", "off"].includes(text)) return reply("Usage: antitag on/off");
+  if (text === current) return reply(`✅ Antitag is already *${text.toUpperCase()}*`);
+  await updateSetting("antitag", text);
+  reply(`✅ Antitag has been turned *${text.toUpperCase()}*`);
+}
+break;	 
+	
+case "welcomegoodbye": {
+	if(!Owner) throw NotOwner;
+  const settings = await getSettings();
+  const current = settings.welcomegoodbye;
+  if (!text) return reply(`🕳 Welcomegoodbye is currently *${current.toUpperCase()}*`);
+  if (!["on", "off"].includes(text)) return reply("Usage: welcomegoodbye on/off");
+  if (text === current) return reply(`✅ Welcomegoodbye is already *${text.toUpperCase()}*`);
+  await updateSetting("welcomegoodbye", text);
+  reply(`✅ Welcomegoodbye has been turned *${text.toUpperCase()}*`);
+}
+break;	 
+		      
+//=========================================================================================================================//		      
 case "advice":
 reply(advice());
 console.log(advice());
-
 break;
 //========================================================================================================================//
 		      
