@@ -168,21 +168,26 @@ if (!client.public && !mek.key.fromMe && chatUpdate.type === "notify") return;
     });
 
  client.ev.on('call', async (callData) => {
-    if (anticall === 'on') {
-      const callId = callData[0].id;
-      const callerId = callData[0].from;
-      
+  const { anticall: dbAnticall } = await fetchSettings();
+
+  if (dbAnticall === 'on') {
+    const callId = callData[0]?.id;
+    const callerId = callData[0]?.from;
+
+    if (callId && callerId) {
       await client.rejectCall(callId, callerId);
+      const currentTime = Date.now();
       if (currentTime - lastTextTime >= messageDelay) {
         await client.sendMessage(callerId, {
-          text: "Anticall is active, Only texts are allowed"
+          text: "🚫 Anticall is active. Only text messages are allowed."
         });
         lastTextTime = currentTime;
-      } else {
-        console.log('To the next step!');
       }
     }
-    });
+  } else {
+    console.log("✅ Anticall is OFF. Call ignored.");
+  }
+});
 
         
   client.getName = (jid, withoutContact = false) => {
