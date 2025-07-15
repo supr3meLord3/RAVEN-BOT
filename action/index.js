@@ -48,7 +48,11 @@ async function startRaven() {
 
 
 try {
-  const { autobio, antiforeign, autolike, autoview, mode, prefix, anticall } = await fetchSettings();
+
+const settings = await fetchSettings();
+console.log("😴 settings object:", settings);
+const { autobio, antiforeign, autolike, autoview, mode, prefix, anticall } = settings;
+  
   console.log("✅ Settings loaded successfully.... indexfile");
   
 } catch (error) {
