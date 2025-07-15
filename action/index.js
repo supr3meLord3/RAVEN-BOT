@@ -45,18 +45,17 @@ async function startRaven() {
   
 let autobio, antiforeign, autolike, autoview, mode, prefix, anticall;
 
-
-
 try {
+  const settings = await fetchSettings();
+  console.log("😴 settings object:", settings);
 
-const settings = await fetchSettings();
-console.log("😴 settings object:", settings);
-const { autobio, antiforeign, autolike, autoview, mode, prefix, anticall } = settings;
   
+  ({ autobio, antiforeign, autolike, autoview, mode, prefix, anticall } = settings);
+
   console.log("✅ Settings loaded successfully.... indexfile");
-  
 } catch (error) {
   console.error("❌ Failed to load settings:...indexfile", error.message || error);
+  return;
 }
   const { state, saveCreds } = await useMultiFileAuthState("session");
   const { version, isLatest } = await fetchLatestBaileysVersion();
