@@ -43,16 +43,17 @@ authenticationn();
 
 async function startRaven() { 
   
-let settings = await fetchSettings();
-if (!settings) {
-  console.error("❌ Failed to load settings... indexfile");
-  return;
+
+
+
+
+try {
+  const { autobio, antiforeign, autolike, autoview, mode, prefix, anticall } = await fetchSettings();
+  console.log("✅ Settings loaded successfully.... indexfile");
+  
+} catch (error) {
+  console.error("❌ Failed to load settings:...indexfile", error.message || error);
 }
-
-console.log("loaded settings..indexfile 🪆")
-
-const { autobio, antiforeign, autolike, autoview, mode, prefix, anticall } = settings;
-
   const { state, saveCreds } = await useMultiFileAuthState("session");
   const { version, isLatest } = await fetchLatestBaileysVersion();
   console.log(`using WA v${version.join(".")}, isLatest: ${isLatest}`);
