@@ -43,7 +43,7 @@ authenticationn();
 
 async function startRaven() { 
   
-
+let autobio, antiforeign, autolike, autoview, mode, prefix, anticall;
 
 
 
