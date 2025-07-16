@@ -1190,43 +1190,48 @@ break;
 
 //========================================================================================================================//	      		      
   case "song": {		      
- if (!args || args.length === 0) {
+ if (!text) {
       return client.sendMessage(from, { text: 'Please provide a song name.' }, { quoted: m });
     }
 
 try {
-      const searchQuery = args.join(' ');
-      const searchResults = await yts(searchQuery);
-      const videos = searchResults.videos;
+     const search = await yts(text);
+     const video = search.videos[0];
 
-if (!videos || videos.length === 0) {
-        return client.sendMessage(from, { text: 'No results found on YouTube.' }, { quoted: message });
-      }
-	 
-m.reply("_Please wait your download is in progress_");
-	 
-      const video = videos[0];
-      const videoId = video.videoId;
-      const mp3Url = `${BASE_URL}/dipto/ytDl3?link=${encodeURIComponent(video.videoId)}&format=mp3`;
+        if (!video) {
+          return client.sendMessage(from, {
+            text: 'No results found for your query.'
+          }, { quoted: m });
+        }
 
-      const mp3Response = await axios.get(mp3Url);
-      const mp3Data = mp3Response.data;
+        const safeTitle = video.title.replace(/[\\/:*?"<>|]/g, '');
+        const fileName = `${safeTitle}.mp3`;
+        const apiURL = `${BASE_URL}/dipto/ytDl3?link=${encodeURIComponent(video.videoId)}&format=mp3`;
 
-if (mp3Data.success !== 'true' || !mp3Data.downloadLink) {
-        return client.sendMessage(from, { text: 'Failed to retrieve MP3 download link.' }, { quoted: m });
-      }
+        const response = await axios.get(apiURL);
+        const data = response.data;
 
+        if (!data.downloadLink) {
+          return client.sendMessage(from, {
+            text: 'Failed to retrieve the MP3 download link.'
+          }, { quoted: m });
+	} 
+	
+	m.reply('Please wait');
+	
 await client.sendMessage(from, {
-          audio: { url: mp3Data.downloadLink },
+          audio: { url: data.downloadLink },
           mimetype: 'audio/mpeg',
-          ptt: false
+          fileName
         }, { quoted: m });
-	    
-    } catch (error) {
-      console.error('Error:', error);
-      await client.sendMessage(from, { text: 'An error occurred while processing your request.' }, { quoted: m });
-    }
-  }
+
+      } catch (err) {
+        console.error('[PLAY] Error:', err);
+        await client.sendMessage(from, {
+          text: 'An error occurred while processing your request.'
+        }, { quoted: m });
+}
+}
 break;
 		      
 //========================================================================================================================//
