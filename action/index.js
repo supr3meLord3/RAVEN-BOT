@@ -43,14 +43,14 @@ authenticationn();
 
 async function startRaven() { 
   
-let autobio, antiforeign, autolike, autoview, mode, prefix, anticall;
+let autobio, autolike, autoview, mode, prefix, anticall;
 
 try {
   const settings = await fetchSettings();
   console.log("😴 settings object:", settings);
 
   
-  ({ autobio, antiforeign, autolike, autoview, mode, prefix, anticall } = settings);
+  ({ autobio, autolike, autoview, mode, prefix, anticall } = settings);
 
   console.log("✅ Settings loaded successfully.... indexfile");
 } catch (error) {
@@ -96,7 +96,8 @@ try {
       let mek = chatUpdate.messages[0];
       if (!mek.message) return;
       mek.message = Object.keys(mek.message)[0] === "ephemeralMessage" ? mek.message.ephemeralMessage.message : mek.message;
-            
+
+      
  if (autoview === 'on' && mek.key && mek.key.remoteJid === "status@broadcast") {
         client.readMessages([mek.key]);
       }
@@ -109,7 +110,8 @@ try {
         await sleep(messageDelay);
    console.log('Reaction sent successfully✅️');
           }
-            
+
+      
 if (!client.public && !mek.key.fromMe && chatUpdate.type === "notify") return;
       let m = smsg(client, mek, store);
       const raven = require("../action/raven");
@@ -147,26 +149,11 @@ if (!client.public && !mek.key.fromMe && chatUpdate.type === "notify") return;
       if (store && store.contacts) store.contacts[id] = { id, name: contact.notify };
     }
   });
-   
-  client.ev.on("group-participants.update", async (update) => {
-        if (antiforeign === 'on' && update.action === "add") {
-            for (let participant of update.participants) {
-                const jid = client.decodeJid(participant);
-                const phoneNumber = jid.split("@")[0];
-                    // Extract phone number
-                if (!phoneNumber.startsWith(mycode)) {
-                        await client.sendMessage(update.id, {
-                    text: "Your Country code is not allowed to join this group !",
-                    mentions: [jid]
-                });
-                    await client.groupParticipantsUpdate(update.id, [jid], "remove");
-                    console.log(`Removed ${jid} from group ${update.id} because they are not from ${mycode}`);
-                }
-            }
-        }
-        Events(client, update); // Call existing event handler
-    });
-
+  
+client.ev.on("group-participants.update", async (m) => {
+    Events(client, m);
+  });
+  
  client.ev.on('call', async (callData) => {
   const { anticall: dbAnticall } = await fetchSettings();
 
