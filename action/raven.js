@@ -1203,7 +1203,9 @@ try {
             text: 'No results found for your query.'
           }, { quoted: m });
         }
-
+	
+m.reply("_Please wait your download is in progress_");
+	
         const safeTitle = video.title.replace(/[\\/:*?"<>|]/g, '');
         const fileName = `${safeTitle}.mp3`;
         const apiURL = `${BASE_URL}/dipto/ytDl3?link=${encodeURIComponent(video.videoId)}&format=mp3`;
@@ -1217,7 +1219,6 @@ try {
           }, { quoted: m });
 	} 
 	
-	m.reply('Please wait');
 	
 await client.sendMessage(from, {
           audio: { url: data.downloadLink },
@@ -1236,43 +1237,48 @@ break;
 		      
 //========================================================================================================================//
 case "video": {		      
-if (!args || args.length === 0) {
-      return client.sendMessage(from, { text: 'Please provide a video name you want to download.' }, { quoted: m });
+if (!text) {
+	return client.sendMessage(from, { text: 'Please provide a song name.' }, { quoted: m });
     }
 
 try {
-      const searchQuery = args.join(' ');
-      const searchResults = await yts(searchQuery);
-      const videos = searchResults.videos;
+     const search = await yts(text);
+     const video = search.videos[0];
 
-      if (!videos || videos.length === 0) {
-        return client.sendMessage(from, { text: 'No results found on YouTube.' }, { quoted: m });
-      }
-	    
+        if (!video) {
+          return client.sendMessage(from, {
+            text: 'No results found for your query.'
+          }, { quoted: m });
+        }
+	
 m.reply("_Please wait your download is in progress_");
-	    
-      const video = videos[0];
-      const videoId = video.videoId;
-      const mp4Url = `${BASE_URL}/dipto/ytDl3?link=${encodeURIComponent(video.videoId)}&format=mp4`;
+	
+        const safeTitle = video.title.replace(/[\\/:*?"<>|]/g, '');
+        const fileName = `${safeTitle}.mp3`;
+        const apiURL = `${BASE_URL}/dipto/ytDl3?link=${encodeURIComponent(video.videoId)}&format=mp4`;
 
-      // Download and send MP4
-      const mp4Response = await axios.get(mp4Url);
-      const mp4Data = mp4Response.data;
+        const response = await axios.get(apiURL);
+        const data = response.data;
 
- if (mp4Data.success !== 'true' || !mp4Data.downloadLink) {
-        return client.sendMessage(chatId, { text: 'Failed to retrieve MP4 download link.' }, { quoted: m });
+        if (!data.downloadLink) {
+          return client.sendMessage(from, {
+            text: 'Failed to retrieve the MP4 download link.'
+          }, { quoted: m });
+	} 
+	
+	
+await client.sendMessage(from, {
+          video: { url: data.downloadLink },
+          mimetype: 'video/mp4'
+        }, { quoted: m });
+
+      } catch (err) {
+        console.error('[PLAY] Error:', err);
+        await client.sendMessage(from, {
+          text: 'An error occurred while processing your request.'
+        }, { quoted: m });
+}
       }
-
-      await client.sendMessage(from, {
-        video: { url: mp4Data.downloadLink },
-        mimetype: 'video/mp4',
-        caption: "𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗𝗘𝗗 𝗕𝗬 𝗥𝗔𝗩𝗘𝗡-𝗕𝗢𝗧",
-      }, { quoted: m });
-    } catch (error) {
-      console.error('Error:', error);
-      await client.sendMessage(from, { text: 'An error occurred while processing your request.' }, { quoted: m });
-    }
-  }
   break;
 //========================================================================================================================//		      
    
