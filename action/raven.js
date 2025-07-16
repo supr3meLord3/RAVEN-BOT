@@ -1254,7 +1254,7 @@ try {
 m.reply("_Please wait your download is in progress_");
 	
         const safeTitle = video.title.replace(/[\\/:*?"<>|]/g, '');
-        const fileName = `${safeTitle}.mp3`;
+        const fileName = `${safeTitle}.mp4`;
         const apiURL = `${BASE_URL}/dipto/ytDl3?link=${encodeURIComponent(video.videoId)}&format=mp4`;
 
         const response = await axios.get(apiURL);
@@ -1269,7 +1269,8 @@ m.reply("_Please wait your download is in progress_");
 	
 await client.sendMessage(from, {
           video: { url: data.downloadLink },
-          mimetype: 'video/mp4'
+          mimetype: 'video/mp4', 
+	  fileName
         }, { quoted: m });
 
       } catch (err) {
