@@ -568,7 +568,6 @@ let cap = `𝗛𝗲𝘆 𝘁𝗵𝗲𝗿𝗲😁, ${getGreeting()}\n\n╔══�
 ╭══⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊══╮
 ┃✥│ 𝗔𝗻𝘁𝗶𝗱𝗲𝗹𝗲𝘁𝗲
 ┃✥│ 𝗔𝗻𝘁𝗶𝗰𝗮𝗹𝗹
-┃✥│ 𝗔𝗻𝘁𝗶𝗳𝗼𝗿𝗲𝗶𝗴𝗻
 ┃✥│ 𝗔𝗻𝘁𝗶𝗯𝗼𝘁
 ┃✥│ 𝗯𝗮𝗱𝘄𝗼𝗿𝗱
 ┃✥│ 𝗔𝗻𝘁𝗶𝘁𝗮𝗴
@@ -690,7 +689,7 @@ let cap = `𝗛𝗲𝘆 𝘁𝗵𝗲𝗿𝗲😁, ${getGreeting()}\n\n╔══�
 > 𝗣𝗥𝗔𝗡𝗞  𝗖𝗠𝗗𝗦
 ╭══⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊══╮
 ┃▧│ 𝗛𝗮𝗰𝗸
-┃▧│ 𝗩𝗶𝗿𝘂𝘀
+┃▧│ 
 ╰══⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊══╯
 > 𝗟𝗢𝗚𝗢  𝗖𝗠𝗗𝗦
 ╭══⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊══╮
@@ -876,11 +875,11 @@ case "mode": {
 break;
 
 case "prefix": {
-	if(!Owner) throw NotOwner;
+if(!Owner) throw NotOwner;
   const newPrefix = args[0];
   const settings = await getSettings();
 
-    if (newPrefix === 'null') {
+if (newPrefix === 'none') {
       if (!settings.prefix) {
         return await m.reply(`✅ The bot was already prefixless.`);
       }
@@ -893,7 +892,7 @@ case "prefix": {
       await updateSetting('prefix', newPrefix);
       await m.reply(`✅ Prefix has been updated to: ${newPrefix}`);
     } else {
-      await m.reply(`📄 Current prefix: ${settings.prefix || 'No prefix set.'}\n\nUse _${settings.prefix || '.'}prefix null_ to remove the prefix or _${settings.prefix || '.'}prefix <any symbol>_ to set a specific prefix.`);
+      await m.reply(`👤 Prefix is currently: ${settings.prefix || 'No prefix set.'}\n\nUse _${settings.prefix || '.'}prefix none to remove the prefix.`);
     }
   }
 break;
@@ -958,18 +957,6 @@ case "badword": {
 }
 break;	
 		
-case "antiforeign": {
-	if(!Owner) throw NotOwner;
-  const settings = await getSettings();
-  const current = settings.antiforeign;
-  if (!text) return reply(`😉 Antiforeign is currently *${current.toUpperCase()}*`);
-  if (!["on", "off"].includes(text)) return reply("Usage: antiforeign on/off");
-  if (text === current) return reply(`✅ Antiforeign is already *${text.toUpperCase()}*`);
-  await updateSetting("antiforeign", text);
-  reply(`✅ Antiforeign has been turned *${text.toUpperCase()}*`);
-}
-break;
-	
 case "anticall": {
 	if(!Owner) throw NotOwner;
   const settings = await getSettings();
@@ -4301,9 +4288,16 @@ if (!m.isGroup) throw group;
 
 //========================================================================================================================//		      
      case "hidetag": case "tag": { 
-             if (!m.isGroup) throw group;          
-            client.sendMessage(m.chat, { text : q ? q : '😅𝗕𝗹𝗶𝗻𝗱 𝗧𝗮𝗴𝘀😅' , mentions: participants.map(a => a.id)}, { quoted: m }); 
-             } 
+             if (!m.isGroup) throw group; 
+client.sendMessage(
+              m.chat,
+              { 
+                  text: text ? text : '@Everyone', 
+                  mentions: participants 
+              },
+              { quoted: m }
+          );
+      }
  break; 
 
 //========================================================================================================================//		      
@@ -4311,14 +4305,17 @@ if (!m.isGroup) throw group;
                  if (!m.isGroup) throw group; 
                  if (!isBotAdmin) throw botAdmin; 
                  if (!isAdmin) throw admin; 
- let teks = `𝗢𝗻𝗹𝘆 𝗳𝗼𝗼𝗹𝘀 𝗮𝗿𝗲 𝘁𝗮𝗴𝗴𝗲𝗱 𝗵𝗲𝗿𝗲😅: 
-   
-  Message ${q ? q : ''}*\n\n`; 
-                 for (let mem of participants) { 
-                 teks += `𓅂 @${mem.id.split('@')[0]}\n`; 
-                 } 
-                 client.sendMessage(m.chat, { text: teks, mentions: participants.map(a => a.id) }, { quoted: m }); 
-                 } 
+ let txt = `Tagged by ${m.pushName}.\n\nMessage:- ${text ? text : 'No Message!'}\n\n`; 
+          
+          for (let mem of participants) { 
+              txt += `📧 @${mem.split('@')[0]}\n`; 
+          } 
+  
+          await client.sendMessage(m.chat, {
+              text: txt,
+              mentions: participants
+          }, { quoted: m });
+      }
  break;
 
 //========================================================================================================================//		      
