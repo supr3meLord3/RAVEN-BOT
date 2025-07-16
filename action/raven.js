@@ -1207,7 +1207,7 @@ m.reply("_Please wait your download is in progress_");
 	 
       const video = videos[0];
       const videoId = video.videoId;
-      const mp3Url = `${BASE_URL}/dipto/ytDl3?link=${videoId}&format=mp3`;
+      const mp3Url = `${BASE_URL}/dipto/ytDl3?link=${encodeURIComponent(video.videoId)}&format=mp3`;
 
       const mp3Response = await axios.get(mp3Url);
       const mp3Data = mp3Response.data;
@@ -1248,7 +1248,7 @@ m.reply("_Please wait your download is in progress_");
 	    
       const video = videos[0];
       const videoId = video.videoId;
-      const mp4Url = `${BASE_URL}/dipto/ytDl3?link=${videoId}&format=mp4`;
+      const mp4Url = `${BASE_URL}/dipto/ytDl3?link=${encodeURIComponent(video.videoId)}&format=mp4`;
 
       // Download and send MP4
       const mp4Response = await axios.get(mp4Url);
