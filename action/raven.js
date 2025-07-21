@@ -2287,7 +2287,7 @@ case "raven":
 		{
         if (!text) return reply(`Hello there, what's your question?`);
           let d = await fetchJson(
-            `https://bk9.fun/ai/llama?q=${text}`
+            `https://api.bk9.dev/ai/llama?q=${text}`
           );
           if (!d.BK9) {
             return reply(
@@ -2304,7 +2304,7 @@ case "gpt4":
            {
         if (!text) return reply(`Hello there, what's your question?`);
           let d = await fetchJson(
-            `https://bk9.fun/ai/Aoyo?q=${text}`
+            `https://api.bk9.dev/ai/Aoyo?q=${text}`
           );
           if (!d.BK9) {
             return reply(
@@ -2615,7 +2615,7 @@ m.reply("I am unable to analyze images at the moment\n" + e)
     let _0x11f50e = await client.downloadAndSaveMediaMessage(_0x44b3e0);
     let _0x45392d = await uploadToCatbox(_0x11f50e);
     m.reply("𝗔 𝗺𝗼𝗺𝗲𝗻𝘁, 𝗟𝗲𝗺𝗺𝗲 𝗮𝗻𝗮𝗹𝘆𝘇𝗲 𝘁𝗵𝗲 𝗰𝗼𝗻𝘁𝗲𝗻𝘁𝘀 𝗼𝗳 𝘁𝗵𝗲 𝗶𝗺𝗮𝗴𝗲. . .");
-    let _0x4f137e = await (await fetch("https://bk9.fun/ai/geminiimg?url=" + _0x45392d + "&q=" + text)).json();
+    let _0x4f137e = await (await fetch("https://api.bk9.dev/ai/geminiimg?url=" + _0x45392d + "&q=" + text)).json();
     const _0x4bfd63 = {
       text: _0x4f137e.BK9
     };
@@ -3856,7 +3856,7 @@ await client.sendMessage(m.chat, {
     });
 
  try {
-    const response = await axios.get(`https://bk9.fun/download/tiktok?url=${encodeURIComponent(text)}`);
+    const response = await axios.get(`https://api.bk9.dev/download/tiktok?url=${encodeURIComponent(text)}`);
 
     if (response.data.status && response.data.BK9) {
       const videoUrl = response.data.BK9.BK9;
@@ -3901,7 +3901,7 @@ await client.sendMessage(m.chat, {
  
 try {
         const pinterestUrl = text;
-        const response = await axios.get(`https://bk9.fun/download/pinterest?url=${encodeURIComponent(pinterestUrl)}`);
+        const response = await axios.get(`https://api.bk9.dev/download/pinterest?url=${encodeURIComponent(pinterestUrl)}`);
 
         if (!response.data.status) {
             return reply('Unable to fetch pinterest data.');
