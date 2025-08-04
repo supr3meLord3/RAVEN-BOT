@@ -5070,7 +5070,7 @@ await client.sendMessage(m.chat, { image: { url: pp },
       }
     }
   } catch (err) {
-    m.reply(util.format(err));
+    console.log(util.format(err));
   }
 };
 
