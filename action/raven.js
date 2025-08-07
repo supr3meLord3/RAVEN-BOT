@@ -1008,6 +1008,32 @@ reply(advice());
 console.log(advice());
 break;
 //========================================================================================================================//
+		  case "updt": {
+			  const repo = "HunterNick2/RAVEN-BOT";
+    const botPath = path.join(__dirname, '..'); 
+
+    try {
+      const localCommit = execSync('git rev-parse HEAD', { cwd: botPath }).toString().trim();
+
+      const res = await axios.get(`https://api.github.com/repos/${repo}/commits/main`);
+      const latestCommit = res.data.sha;
+
+      if (localCommit === latestCommit) {
+        await m.reply("✅ You're already running the latest version of RAVEN-BOT.");
+      } else {
+        await m.reply("♻️ New version available! Restarting to apply update...");
+        
+setTimeout(() => process.exit(0), 2000);
+      }
+    } catch (err) {
+      console.error("❗ Update check failed:", err.message);
+      await m.reply("❗ Could not check for update. Restarting anyways...");
+setTimeout(() => process.exit(0), 2000);
+      
+
+    }
+  }
+	break;
 		      
 case "owner":
 client.sendContact(m.chat, Dev, m)
