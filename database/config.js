@@ -13,7 +13,6 @@ const defaultSettings = {
   antitag: 'on',
   antibot: 'off',
   anticall: 'on',
-  antiforeign: 'off',
   badword: 'on',
   gptdm: 'off',
   welcomegoodbye: 'off',
