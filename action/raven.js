@@ -901,7 +901,7 @@ case "autolike": {
   if (text === current) return reply(`✅ Autolike is already *${text.toUpperCase()}*`);
   await updateSetting("autolike", text);
   reply(`✅ Autolike has been turned *${text.toUpperCase()}*`);
-	setTimeout(() => process.exit(0), 2000);
+	
 }
 break;
 
@@ -914,7 +914,7 @@ case "autobio": {
   if (text === current) return reply(`✅ Autobio is already *${text.toUpperCase()}*`);
   await updateSetting("autobio", text);
   reply(`✅ Autobio has been turned *${text.toUpperCase()}*`);
-	setTimeout(() => process.exit(0), 2000);
+	
 }
 break;
 		      
@@ -927,7 +927,7 @@ case "autoview": {
   if (text === current) return reply(`✅ Auto view status is already *${text.toUpperCase()}*`);
   await updateSetting("autoview", text);
   reply(`✅ Auto view status updated to *${text.toUpperCase()}*`);
-	setTimeout(() => process.exit(0), 2000);
+	
 }
 break;
 
@@ -1000,7 +1000,7 @@ case "welcomegoodbye": {
   if (text === current) return reply(`✅ Welcomegoodbye is already *${text.toUpperCase()}*`);
   await updateSetting("welcomegoodbye", text);
   reply(`✅ Welcomegoodbye has been turned *${text.toUpperCase()}*`);
-	setTimeout(() => process.exit(0), 2000);
+	
 }
 break;	 
 		      
