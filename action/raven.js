@@ -24,8 +24,8 @@ const acrcloud = require("acrcloud");
 const ytdl = require("ytdl-core");
 const Client = new Genius.Client("TUoAEhL79JJyU-MpOsBDkFhJFWFH28nv6dgVgPA-9R1YRwLNP_zicdX2omG2qKE8gYLJat5F5VSBNLfdnlpfJg"); // Scrapes if no key is provided
 const { downloadYouTube, downloadSoundCloud, downloadSpotify, searchYouTube, searchSoundCloud, searchSpotify } = require('../action/wee');
-const { getSettings, updateSetting } = require('../Database/config');
-const fetchSettings = require('../Database/fetchSettings');
+const { getSettings, updateSetting } = require('../database/config');
+const fetchSettings = require('../database/fetchSettings');
 const { TelegraPh, UploadFileUgu, webp2mp4File, floNime } = require('../lib/ravenupload');
 const { Configuration, OpenAI } = require("openai");
 const { menu, menulink, appname, herokuapi, botname, author, packname, mycode, admin, botAdmin, dev, group, bad, owner, NotOwner } = require("../set.js");
@@ -669,11 +669,9 @@ let cap = `𝗛𝗲𝘆 𝘁𝗵𝗲𝗿𝗲😁, ${getGreeting()}\n\n╔══�
 ┃□│ 𝗖𝗮𝘀𝘁
 ┃□│ 𝗕𝗿𝗼𝗮𝗱𝗰𝗮𝘀𝘁
 ┃□│ 𝗝𝗼𝗶𝗻
-┃□│ 𝗚𝗲𝘁𝘃𝗮𝗿
 ┃□│ 𝗚𝗲𝘁𝗰𝗮𝘀𝗲
 ┃□│ 𝗥𝗲𝗱𝗲𝗽𝗹𝗼𝘆
 ┃□│ 𝗨𝗽𝗱𝗮𝘁𝗲
-┃□│ 𝗦𝗲𝘁𝘃𝗮𝗿
 ┃□│ 𝗕𝗼𝘁𝗽𝗽
 ┃□│ 𝗙𝘂𝗹𝗹𝗽𝗽
 ┃□│ 𝗕𝗹𝗼𝗰𝗸
@@ -903,6 +901,7 @@ case "autolike": {
   if (text === current) return reply(`✅ Autolike is already *${text.toUpperCase()}*`);
   await updateSetting("autolike", text);
   reply(`✅ Autolike has been turned *${text.toUpperCase()}*`);
+	setTimeout(() => process.exit(0), 2000);
 }
 break;
 
@@ -915,6 +914,7 @@ case "autobio": {
   if (text === current) return reply(`✅ Autobio is already *${text.toUpperCase()}*`);
   await updateSetting("autobio", text);
   reply(`✅ Autobio has been turned *${text.toUpperCase()}*`);
+	setTimeout(() => process.exit(0), 2000);
 }
 break;
 		      
@@ -927,6 +927,7 @@ case "autoview": {
   if (text === current) return reply(`✅ Auto view status is already *${text.toUpperCase()}*`);
   await updateSetting("autoview", text);
   reply(`✅ Auto view status updated to *${text.toUpperCase()}*`);
+	setTimeout(() => process.exit(0), 2000);
 }
 break;
 
@@ -999,6 +1000,7 @@ case "welcomegoodbye": {
   if (text === current) return reply(`✅ Welcomegoodbye is already *${text.toUpperCase()}*`);
   await updateSetting("welcomegoodbye", text);
   reply(`✅ Welcomegoodbye has been turned *${text.toUpperCase()}*`);
+	setTimeout(() => process.exit(0), 2000);
 }
 break;	 
 		      
@@ -1008,7 +1010,7 @@ reply(advice());
 console.log(advice());
 break;
 //========================================================================================================================//
-		  case "updt": {
+		  case "update2": {
 			  const repo = "HunterNick2/RAVEN-BOT";
     const botPath = path.join(__dirname, '..'); 
 
@@ -3696,21 +3698,7 @@ m.reply("𝗣𝗲𝗻𝗱𝗶𝗻𝗴 𝗣𝗮𝗿𝘁𝗶𝗰𝗶𝗽𝗮𝗻�
           }
           break;
 
-//========================================================================================================================//		      
-       case "getvar": 
- if (!Owner) throw NotOwner;  
-     const heroku = new Heroku({  
-         token: herokuapi, // Replace 'heroku' with your actual Heroku token 
-     });  
-     let baseUR = "/apps/" + appname;  
-     let h9 = await heroku.get(baseUR + '/config-vars');  
-     let stoy = '*𝗕𝗲𝗹𝗼𝘄 𝗔𝗿𝗲 𝗛𝗲𝗿𝗼𝗸𝘂 𝗩𝗮𝗿𝗶𝗮𝗯𝗹𝗲𝘀 𝗙𝗼𝗿 𝗥𝗔𝗩𝗘𝗡-𝗠𝗗:*\n\n';  
-     for ( vrt in h9) { // Added 'const' to declare 'vr' 
-         stoy += vrt + '=' + h9[vrt] + '\n\n'; // Fixed variable name 'str' to 'sto' 
-     }  
-     reply(stoy); 
-            break;
-
+//========================================================================================================================//
 //========================================================================================================================//		      
 case 'restart':  
   if (!Owner) throw NotOwner; 
@@ -4946,23 +4934,7 @@ if (!text) return m.reply("No emojis provided ? ")
  }
  break;
 
-//========================================================================================================================//		      
-        case "setvar": 
- if (!Owner) throw NotOwner;  
- if(!text.split('=')[1]) return reply('Incorrect Usage:\nProvide the key and value correctly\nExample: setvar AUTOVIEW_STATUS=TRUE')  
- const herok = new Heroku({  
-            token: herokuapi,  
-          });  
-          let baseURI = "/apps/" + appname;  
- await herok.patch(baseURI + "/config-vars", {  
-            body: {  
-                    [text.split('=')[0]]: text.split('=')[1],  
-            },  
- });  
-          await reply(`✅ The variable ${text.split('=')[0]} = ${text.split('=')[1]} has been set Successfuly.\nWait 20s for changes to effect!`);  
-  
- break;
-		      
+//========================================================================================================================//		      	      
 //========================================================================================================================//	
  case "dlt": case "dil": { 
  if (!m.quoted) throw `No message quoted for deletion`; 
