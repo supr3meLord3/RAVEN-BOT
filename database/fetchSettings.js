@@ -1,4 +1,4 @@
-const { getSettings } = require('../Database/config');
+const { getSettings } = require('../database/config');
 
 async function fetchSettings() {
   const data = await getSettings();
@@ -14,7 +14,6 @@ async function fetchSettings() {
     antilinkall: data.antilinkall,
     antidelete: data.antidelete,
     antitag: data.antitag,
-    antiforeign: data.antiforeign,
     antibot: data.antibot,
     welcomegoodbye: data.welcomegoodbye,
     autobio: data.autobio,
