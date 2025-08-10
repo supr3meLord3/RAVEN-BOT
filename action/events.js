@@ -1,5 +1,5 @@
 const botname = require('../set');
-const fetchSettings = require('../Database/fetchSettings');
+const fetchSettings = require('../database/fetchSettings');
 const Events = async (client, Nick) => {
     
     try {
