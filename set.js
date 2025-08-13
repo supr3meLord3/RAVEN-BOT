@@ -10,8 +10,6 @@ const author = process.env.STICKER_AUTHOR || '𝗕𝗢𝗧';
 const packname = process.env.STICKER_PACKNAME || '𝗥𝗔𝗩𝗘𝗡';
 const dev = process.env.DEV || '254114660061';
 const owner = dev.split(",");
-const menulink = process.env.MENU_LINK || 'https://files.catbox.moe/duv8ac.jpg';
-const menu = process.env.MENU_TYPE || 'VIDEO';
 const bad = process.env.BAD_WORD || 'fuck';
 const admin = process.env.ADMIN_MSG || '𝗖𝗼𝗺𝗺𝗮𝗻𝗱 𝗿𝗲𝘀𝗲𝗿𝘃𝗲𝗱 𝗳𝗼𝗿 𝗔𝗱𝗺𝗶𝗻𝘀!';
 const group = process.env.GROUP_ONLY_MSG || '𝗖𝗼𝗺𝗺𝗮𝗻𝗱 𝗺𝗲𝗮𝗻𝘁 𝗳𝗼𝗿 𝗚𝗿𝗼𝘂𝗽𝘀!';
@@ -32,9 +30,7 @@ module.exports = {
   group,
   NotOwner,
   botname,
-  botAdmin, 
-  menu,
-  menulink,
+  botAdmin,
   admin,
   mycode,
   herokuapi,
