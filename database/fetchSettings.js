@@ -9,6 +9,7 @@ async function fetchSettings() {
     mode: data.mode,
     prefix: data.prefix,
     autolike: data.autolike,
+    menutype: data.menutype,
     autoview: data.autoview,
     antilink: data.antilink,
     antilinkall: data.antilinkall,
