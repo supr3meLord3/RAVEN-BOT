@@ -20,12 +20,12 @@
   "success_url": "/",
   "env": {
     "DEV": {
-      "description": "Put any phone numbers you want to be bot owner without + or spaces \",\" Ex: 254114660061,27849061633",
+      "description": "Put any phone numbers you want to be bot owner without + or spaces \",\" Ex: 254114660061,254780147229",
       "required": true
     },
     "HEROKU_API": {
-      "description": "Put a Heroku API key here, will be required to update vars in your DM",
-      "required": true
+      "description": "Put a Heroku API key here, will be required to update your bot",
+      "required": false
     },
     "BAD_WORD": {
       "description": "List words separated with commas that will be considered bad. Example: fuck, pussy, hoe",
@@ -44,16 +44,6 @@
     "APP_NAME": {
       "description": "repeat the appname you filled above, lowercase",
       "required": true
-    },
-    "MENU_LINK": {
-      "description": "Image URL for menu (if MENU_TYPE is IMAGE)",
-      "value": "https://files.catbox.moe/duv8ac.jpg",
-      "required": false
-    },
-    "MENU_TYPE": {
-      "description": "VIDEO, LINK, or IMAGE menu format",
-      "value": "VIDEO",
-      "required": false
     },
     "DATABASE_URL": {
       "description": "PostgreSQL connection string, it will be automatically added by Heroku Postgres add-on, leave it blank",
