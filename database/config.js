@@ -20,6 +20,7 @@ const defaultSettings = {
   mode: 'public',
   prefix: '.',
   autolike: 'on',
+  menutype: 'video',
   autoview: 'on',
   wapresence: 'recording'
 };
