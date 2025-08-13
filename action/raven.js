@@ -28,8 +28,7 @@ const { getSettings, updateSetting } = require('../database/config');
 const fetchSettings = require('../database/fetchSettings');
 const { TelegraPh, UploadFileUgu, webp2mp4File, floNime } = require('../lib/ravenupload');
 const { Configuration, OpenAI } = require("openai");
-const { menu, menulink, appname, herokuapi, botname, author, packname, mycode, admin, botAdmin, dev, group, bad, owner, NotOwner } = require("../set.js");
-
+const { appname, herokuapi, botname, author, packname, mycode, admin, botAdmin, dev, group, bad, owner, NotOwner } = require("../set.js");
 
 const { smsg, runtime, fetchUrl, isUrl, processTime, formatp, tanggal, formatDate, getTime,  sleep, generateProfilePicture, clockString, fetchJson, getBuffer, jsonformat, format, parseMention, getRandom } = require('../lib/ravenfunc');
 const { exec, spawn, execSync } = require("child_process");
@@ -45,6 +44,7 @@ const {
   antilinkall,
   antidelete,
   gptdm,
+  menutype,
   badword,
   antibot,
   antitag	
@@ -576,6 +576,7 @@ let cap = `𝗛𝗲𝘆 𝘁𝗵𝗲𝗿𝗲😁, ${getGreeting()}\n\n╔══�
 ┃✥│ 𝗔𝘂𝘁𝗼𝗿𝗲𝗮𝗱
 ┃✥│ 𝗔𝘂𝘁𝗼𝗯𝗶𝗼
 ┃✥│ 𝗠𝗼𝗱𝗲
+┃✥│ Menutype
 ┃✥│ 𝗣𝗿𝗲𝗳𝗶𝘅
 ┃✥│ 𝗪𝗲𝗹𝗰𝗼𝗺𝗲𝗴𝗼𝗼𝗱𝗯𝘆𝗲
 ┃✥│ 𝗪𝗮𝗽𝗿𝗲𝘀𝗲𝗻𝗰𝗲
@@ -759,7 +760,7 @@ let cap = `𝗛𝗲𝘆 𝘁𝗵𝗲𝗿𝗲😁, ${getGreeting()}\n\n╔══�
 ┃✬│  𝗠𝗮𝗱𝗲 𝗢𝗻 𝗘𝗮𝗿𝘁𝗵 𝗕𝘆 𝗛𝘂𝗺𝗮𝗻𝘀 !
 ╚══════════════════════╝`;
 
-if (menu === 'VIDEO') {
+if (menutype === 'video') {
 
                    client.sendMessage(m.chat, {
                         video: fs.readFileSync('./Media/menu.mp4'),
@@ -768,12 +769,12 @@ if (menu === 'VIDEO') {
                     }, {
                         quoted: m
                     })
-                } else if (menu === 'TEXT') {
+                } else if (menutype === 'text') {
 client.sendMessage(from, { text: cap}, {quoted: m})
 
-} else if (menu === 'IMAGE') {
-client.sendMessage(m.chat, { image: { url: menulink }, caption: cap }, { quoted: m })
-} else if (menu === 'LINK') {
+} else if (menutype === 'image') {
+client.sendMessage(m.chat, { image: { url: "https://files.catbox.moe/duv8ac.jpg" }, caption: cap }, { quoted: m })
+} else if (menutype === 'link') {
 client.sendMessage(m.chat, {
                         text: cap,
                         contextInfo: {
@@ -928,6 +929,18 @@ case "autoview": {
   await updateSetting("autoview", text);
   reply(`✅ Auto view status updated to *${text.toUpperCase()}*`);
 	
+}
+break;
+			  
+ case "menutype": {
+       if(!Owner) throw NotOwner;
+  const settings = await getSettings();
+  const current = settings.menutype;
+  if (!text) return reply(`👤 menutype is currently *${current}*`);
+  if (!["video", "image", "link", "text"].includes(text)) return reply("Usage: menutype video/image/link/text");
+  if (text === current) return reply(`✅ menutype is already *${text}*`);
+  await updateSetting("menutype", text);
+  reply(`✅ menutype updated to *${text}*`);
 }
 break;
 
